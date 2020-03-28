@@ -6,7 +6,7 @@ export class CardModel extends Model {
     const res: any = await this.db.query('INSERT INTO card SET ?', card)
     return {
       ...card,
-      id: res.insertedId
+      id: res.insertId
     }
   }
 }
