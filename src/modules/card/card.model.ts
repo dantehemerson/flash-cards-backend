@@ -1,8 +1,9 @@
 import { Card } from './card.interface'
-import { Model } from 'src/mysql/model'
+import { Model } from '../../mysql/model'
 
 export class CardModel extends Model {
   async create(card: Card) {
-    this.db.sql('INSERT INTO card ')
+    const res = await this.db.query('SELECT * FROM flash_cards.card')
+    console.log('Dante: CardModel -> create -> res', res)
   }
 }

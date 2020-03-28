@@ -1,9 +1,10 @@
-import { connection } from './connection'
+import { Pool } from 'mysql'
+import { db } from './db'
 
 export class Model {
-  protected db
+  protected db: Pool
 
   constructor() {
-    this.db = connection
+    this.db = db
   }
 }

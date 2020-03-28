@@ -15,6 +15,6 @@ app.use('/', (req, res) => {
   res.send('Hello World')
 })
 
-app.listen(3443, () => {
-  console.log('Listening on http://localhost:3443')
+app.listen(8001, () => {
+  console.log('Listening on http://localhost:8001')
 })
