@@ -6,7 +6,7 @@ export const folderRouter = Router()
 
 folderRouter.get('/', async (req, res) => {
   try {
-    const folders = await getFolders()
+    const folders = await getFolders(req.body)
     response.success(req, res, folders, 200)
   } catch (error) {
     response.error(req, res, error, 500)

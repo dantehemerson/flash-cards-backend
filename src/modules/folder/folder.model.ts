@@ -1,7 +1,13 @@
 import { Model } from '../../mysql/model'
 import { Folder } from './folder.interface'
+import { PaginationQuery } from '../../types/pagination.types'
+import { parsePaginationOptions } from '../../utils/pagination.utils'
 
 export class FolderModel extends Model {
+  static applyKeys = {
+    search: 'name'
+  }
+
   constructor() {
     super('folder')
   }
@@ -14,8 +20,9 @@ export class FolderModel extends Model {
     }
   }
 
-  async getFolders(): Promise<Folder[]> {
-    const folders: any = await this.db.query(`SELECT * FROM ${this.name}`)
+  async getFolders(options: PaginationQuery): Promise<Folder[]> {
+    const paginationOptionsStr = parsePaginationOptions(options, FolderModel.applyKeys)
+    const folders: any = await this.db.query(`SELECT * FROM ${this.name} WHERE ${paginationOptionsStr}`)
 
     return folders
   }
