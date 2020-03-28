@@ -6,11 +6,11 @@ export class CardModel extends Model {
     super('card')
   }
 
-  async create(card: Card) {
+  async create(card: Card): Promise<Card> {
     const res: any = await this.db.query(`INSERT INTO ${this.name} SET ?`, card)
     return {
       ...card,
-      id: res.insertId
+      card_id: res.insertId
     }
   }
 }

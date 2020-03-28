@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getFolders } from './folder.controller'
+import { getFolders, createFolder } from './folder.controller'
 import { response } from '../../response'
 
 export const folderRouter = Router()
@@ -9,10 +9,16 @@ folderRouter.get('/', async (req, res) => {
     const folders = await getFolders()
     response.success(req, res, folders, 200)
   } catch (error) {
-    res.json({
-      error
-    })
+    response.error(req, res, error, 500)
   }
 })
 
-folderRouter.post('/', async (req, res) => {})
+folderRouter.post('/', async (req, res) => {
+  try {
+    const createdFolder = await createFolder(req.body)
+
+    response.success(req, res, createdFolder, 200)
+  } catch (error) {
+    response.error(req, res, error, 500)
+  }
+})
