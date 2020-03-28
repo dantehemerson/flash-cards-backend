@@ -20,9 +20,9 @@ export class FolderModel extends Model {
     }
   }
 
-  async getFolders(options: PaginationQuery): Promise<Folder[]> {
+  async findFolders(options: PaginationQuery): Promise<Folder[]> {
     const paginationOptionsStr = parsePaginationOptions(options, FolderModel.applyKeys)
-    const folders: any = await this.db.query(`SELECT * FROM ${this.name} WHERE ${paginationOptionsStr}`)
+    const folders: any = await this.db.query(`SELECT * FROM ${this.name} ${paginationOptionsStr}`)
 
     return folders
   }

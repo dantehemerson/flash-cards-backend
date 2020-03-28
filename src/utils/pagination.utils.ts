@@ -7,9 +7,12 @@ const defaults = {
 }
 
 export function parsePaginationOptions(options: PaginationQuery, applyKeys) {
-  return Object.keys(options).reduce((query, key) => {
-    if (defaults[key]) {
-      return `${query} ${defaults[key](options[key], applyKeys[key])}`
-    }
-  }, '')
+  const keys = Object.keys(options)
+  return keys.length
+    ? keys.reduce((query, key) => {
+        if (defaults[key]) {
+          return `${query} ${defaults[key](options[key], applyKeys[key])}`
+        }
+      }, 'WHERE ')
+    : ''
 }
