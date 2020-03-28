@@ -3,8 +3,10 @@ import { db } from './db'
 
 export class Model {
   protected db: Pool
+  protected name: string
 
-  constructor() {
+  constructor(name: string) {
     this.db = db
+    this.name = name
   }
 }
