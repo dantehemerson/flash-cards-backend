@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { response } from '../../response'
 import { createCard, findCards } from './card.controller'
+import { ConflictException } from '../../exceptions/conflict.exception'
+import { HttpException } from '../../exceptions/http.exception'
 
 export const cardRouter = Router()
 
@@ -13,11 +15,16 @@ cardRouter.get('/', async (req, res) => {
   }
 })
 
-cardRouter.post('/', async (req, res) => {
+cardRouter.post('/', async (req, res, next) => {
   try {
-    const createdMessage = await createCard(req.body)
+    let createdMessage
+    try {
+      createdMessage = await createCard(req.body)
+    } catch (err) {
+      throw new ConflictException('Error creating....')
+    }
     response.success(req, res, createdMessage, 201)
   } catch (error) {
-    response.error(req, res, error.message, 500, error)
+    next(error)
   }
 })
