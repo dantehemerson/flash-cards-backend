@@ -1,9 +1,9 @@
-import { Request, NextFunction, Response } from 'express'
+import { Request, NextFunction, Response, ErrorRequestHandler } from 'express'
 import { HttpException } from '../exceptions/http.exception'
 import { isObject } from '../utils/shared.utils'
 
 export const exceptionHandler = (
-  errorException,
+  errorException: ErrorRequestHandler,
   req: Request,
   res: Response,
   next: NextFunction
